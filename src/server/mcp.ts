@@ -72,7 +72,7 @@ function createMcpServer() {
     {
       title: z.string().min(1).max(120),
       description: z.string().max(4000).optional(),
-      typeType: z.enum(TASK_TYPES),
+      taskType: z.enum(TASK_TYPES),
       difficulty: z.enum(TASK_DIFFICULTIES).default("easy"),
       base_points: z.number().int().min(1).max(10000),
       verification_mode: z.enum(VERIFICATION_MODES).default("self"),
@@ -96,7 +96,7 @@ function createMcpServer() {
     {
       task_id: z.string().optional(),
       status: z.enum(TASK_STATUSES).optional(),
-      typeType: z.enum(TASK_TYPES).optional(),
+      taskType: z.enum(TASK_TYPES).optional(),
       from: z.string().optional(),
       to: z.string().optional(),
       include_proof: z.boolean().default(false),
