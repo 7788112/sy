@@ -554,6 +554,7 @@ export async function createTask(input: CreateTaskInput, actor: Actor = "AI") {
         .values({
           id,
           title: input.title,
+          occurrenceDate: input.start_date ? new Date(input.start_date) : localDate(now, settings.timezone),
           description: input.description,
           type: input.type,
           difficulty: input.difficulty,
