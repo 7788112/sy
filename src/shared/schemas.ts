@@ -30,7 +30,8 @@ export const createTaskSchema = z
   .object({
     title: z.string().trim().min(1).max(120),
     description: z.string().trim().max(4000).optional().default(""),
-    type: z.enum(TASK_TYPES),
+    taskType:
+z.enum(TASK_TYPES),
     difficulty: z.enum(TASK_DIFFICULTIES).default("easy"),
     base_points: z.number().int().min(1).max(10000),
     verification_mode: z.enum(VERIFICATION_MODES).default("self"),
@@ -46,7 +47,7 @@ export const createTaskSchema = z
     idempotency_key: z.string().min(8).max(128)
   })
   .superRefine((value, ctx) => {
-    if (value.type !== "daily" && value.recurrence !== "once") {
+    if (value.taskType !== "daily" && value.recurrence !== "once") {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
         path: ["recurrence"],
@@ -79,7 +80,7 @@ export const createTaskSchema = z
 export const taskQuerySchema = z.object({
   task_id: z.string().optional(),
   status: z.enum(TASK_STATUSES).optional(),
-  type: z.enum(TASK_TYPES).optional(),
+  taskType: z.enum(TASK_TYPES).optional(),
   from: isoDate.optional(),
   to: isoDate.optional(),
   include_proof: z.boolean().default(false),
